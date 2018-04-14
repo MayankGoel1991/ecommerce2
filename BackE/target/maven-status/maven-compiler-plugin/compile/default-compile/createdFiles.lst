@@ -1,0 +1,14 @@
+com\BackE\dao\ProductDao.class
+com\BackE\model\Supplier.class
+com\BackE\App.class
+com\BackE\dao\CustomerDaoImpl.class
+com\BackE\model\Customer.class
+com\BackE\model\Product.class
+com\BackE\dao\SupplierDao.class
+com\BackE\dao\ProductDaoImpl.class
+com\BackE\dao\CategoryDaoImpl.class
+com\BackE\hibernate\HibernateConfig.class
+com\BackE\dao\CategoryDao.class
+com\BackE\dao\CustomerDao.class
+com\BackE\model\Category.class
+com\BackE\dao\SupplierDaoImpl.class

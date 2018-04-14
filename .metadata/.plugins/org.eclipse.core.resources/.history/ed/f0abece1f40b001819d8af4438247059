@@ -1,0 +1,104 @@
+package com.forntE.controller;
+//import java.io.File;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+//import org.springframework.web.multipart.MultipartHttpServletRequest;
+import com.BackE.dao.CategoryDao;
+import com.BackE.dao.ProductDao;
+import com.BackE.dao.SupplierDao;
+import com.BackE.model.Product;
+
+@Controller
+public class ProductController {
+	@Autowired
+	private ProductDao productDao;
+	@Autowired
+	private CategoryDao categoryDao;
+	@Autowired
+	private 
+	HttpSession httpSession;
+	@Autowired
+	private SupplierDao supplierDao;
+	@RequestMapping(value="/product")
+	public String homeProduct(Model model, HttpServletRequest request){
+		model.addAttribute("product", new Product()); // the product object is used as a template to generate the form
+		model.addAttribute("ProductList",productDao.listProduct());
+		httpSession.setAttribute("categoryList",categoryDao.listCategory());
+		httpSession.setAttribute("SupplierList",supplierDao.listSupplier());
+		 		
+		//model.addAttribute("greetings","hello world");
+	//System.out.println("In category");
+	return "product";
+	}
+	@RequestMapping(value="/product/{categoryId}")
+	public String prodToCat(@PathVariable("categoryId") String categoryId,Model model, HttpServletRequest request){
+		
+		
+		model.addAttribute("productCatList",productDao.getProductByCatId(categoryId));
+		return "product_added";
+	}
+	@RequestMapping(value="/shopping_cart")
+	public String prodAddToCat(@PathVariable("productId") String productId,Model model, HttpServletRequest request){
+		
+		
+		model.addAttribute("productCatList",productDao.getProductByCatId(productId));
+		return "shopping_cart";
+	}
+	@RequestMapping(value="/editproduct/{productId}")
+	public String editProduct(Model model,@PathVariable ("productId") String productId ){
+
+		model.addAttribute("product",productDao.getProductById(productId)); // the product object is used as a template to generate the form
+		model.addAttribute("ProductList",productDao.listProduct());
+		
+	return "product";
+	}
+	@PostMapping(value="/product")
+	public String addProduct(@ModelAttribute("product") Product product,Model model,MultipartFile file){
+		if (product.getProductId() == null) {
+			   productDao.addProduct(product);				   
+			   
+			   MultipartFile filea=product.getpTraImgFile();
+				
+				ServletContext con=httpSession.getServletContext();
+				String filelocation=con.getRealPath("/resources/image/");
+				System.out.println(filelocation);
+				String filename=filelocation+"\\"+product.getProductId()+".jpg";
+				System.out.println(filename);
+				
+				try{
+					byte b[]=filea.getBytes();
+					FileOutputStream fos=new FileOutputStream(filename);
+					fos.write(b);
+					fos.close();
+			    	}
+				catch(IOException ex){}
+				catch(Exception e){}
+					}	
+			
+	
+		   else {	
+			  productDao.updateProduct(product);	
+		  }	
+		 return "redirect:/product";
+		 
+	
+	}
+	 @GetMapping(value = "/deleteproduct/{productId}")	
+	 public String removeCategory(Model model, @PathVariable ("productId") String productId) {
+		 productDao.removeProduct(productId);	
+		  return "redirect:/product";	
+	 }	
+}

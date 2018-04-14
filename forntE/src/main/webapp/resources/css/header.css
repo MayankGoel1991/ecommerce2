@@ -1,0 +1,78 @@
+body{
+     font-family: "Helvetica Neue", Arial, sans-serif;
+}
+.navbar-brand img{
+    padding: 50px;
+    transition: transform .2s; /* Animation */
+    width: 200px;    margin-left: 22px!important;
+    height: 200px;
+    margin: 0 auto;
+}
+.navbar-brand img:hover {margin-left:5px;
+		   background:yellowgreen;
+		   border:2px solid white;
+           transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.8);
+}
+#login-dp .help-block{
+    font-size:12px    
+}
+#login-dp .bottom{
+    background-color:rgba(255,255,255,.8);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+#login-dp .social-buttons{
+    margin:12px 0    
+}
+#login-dp .social-buttons a{
+    width: 49%;
+}
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+.btn-fb{
+    color: #fff;
+    background-color:#3b5998;
+}
+.btn-fb:hover{
+    color: #fff;
+    background-color:#496ebc 
+}
+.btn-tw{
+    color: #fff;
+    background-color:#55acee;
+}
+.btn-tw:hover{
+    color: #fff;
+    background-color:#59b5fa;
+}
+@media(max-width:768px){
+    #login-dp{
+        background-color: inherit;
+        color: #fff;
+    }
+    #login-dp .bottom{
+        background-color: inherit;
+        border-top:0 none;
+    }
+}
+.dropdown-divider{margin:0px!important;}
+
+.dropdown-menu a:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+} 
+.fa{  padding-right: 5px!important;}
+.nav-link:HOVER {
+	color:#4C99B8!important;
+}
+.nav-link {
+	color:#B84C99!important;
+}
